@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=JetBrains+Mono:wght@400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand: #00b779;
+  --brand-dark: #008c5c;
+  --brand-glow: rgba(0,183,121,0.2);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 99px; }
+.dark ::-webkit-scrollbar-thumb { background: #2d3748; }
+
+/* ── Sidebar items ── */
+.sidebar-item {
+  position: relative;
+  transition: all 0.15s ease;
+}
+.sidebar-item.active {
+  background: #f0fdf8;
+  color: #00b779;
+  font-weight: 500;
+}
+.dark .sidebar-item.active {
+  background: rgba(0, 183, 121, 0.12);
+  color: #34d399;
+}
+.sidebar-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 20%; height: 60%;
+  width: 3px;
+  background: #00b779;
+  border-radius: 0 3px 3px 0;
+}
+
+/* ── Animations ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fadeIn 0.25s ease forwards; }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-up { animation: slideUp 0.3s ease forwards; }
+
+@keyframes barGrow {
+  from { width: 0; }
+}
+.bar-animate { animation: barGrow 0.7s cubic-bezier(.4,0,.2,1) forwards; }
+
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 6px;
+}
+.dark .skeleton {
+  background: linear-gradient(90deg, #1e293b 25%, #273344 50%, #1e293b 75%);
+  background-size: 600px 100%;
+}
+
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 60ms; }
+.stagger > *:nth-child(3) { animation-delay: 120ms; }
+.stagger > *:nth-child(4) { animation-delay: 180ms; }
+
+/* ── Brand button ── */
+.btn-brand {
+  background: linear-gradient(135deg, #00b779, #00a36a);
+  color: white;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.15s;
+  box-shadow: 0 1px 3px rgba(0,183,121,0.3);
+}
+.btn-brand:hover:not(:disabled) {
+  background: linear-gradient(135deg, #00c988, #00b779);
+  box-shadow: 0 4px 12px rgba(0,183,121,0.35);
+  transform: translateY(-1px);
+}
+.btn-brand:active { transform: translateY(0); }
+.btn-brand:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* ── Result card ── */
+.result-valid {
+  border: 1.5px solid #86efac;
+  background: linear-gradient(to bottom, #f0fdf4, white);
+}
+.dark .result-valid {
+  border-color: rgba(0,183,121,0.3);
+  background: linear-gradient(to bottom, rgba(0,183,121,0.07), transparent);
+}
+.result-invalid {
+  border: 1.5px solid #fca5a5;
+  background: linear-gradient(to bottom, #fef2f2, white);
+}
+.dark .result-invalid {
+  border-color: rgba(239,68,68,0.3);
+  background: linear-gradient(to bottom, rgba(239,68,68,0.06), transparent);
+}
+
+/* ── Code mono ── */
+.code-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  background: #f1f5f9;
+  color: #475569;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  letter-spacing: 0.3px;
+}
+.dark .code-chip {
+  background: #1e293b;
+  color: #94a3b8;
+  border-color: #334155;
+}
+
+/* ── Table hover ── */
+.tr-hover:hover td { background: rgba(0,183,121,0.03); }
+.dark .tr-hover:hover td { background: rgba(255,255,255,0.03); }
+
+/* ── Tooltip override ── */
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  border-radius: 10px !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12) !important;
+}
+
+/* ── Card base ── */
+.card {
+  background: white;
+  border: 1px solid #f1f5f9;
+  border-radius: 16px;
+}
+.dark .card {
+  background: #0f172a;
+  border-color: #1e293b;
+}
+
+/* ── Input override ── */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="search"] {
+  outline: none;
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="search"]:focus {
+  box-shadow: 0 0 0 3px rgba(0,183,121,0.15);
+  border-color: #00b779 !important;
+}
+
+/* ── Toggle switch ── */
+.toggle {
+  width: 44px; height: 24px;
+  border-radius: 99px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+  border: none;
+}
+.toggle-thumb {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  top: 3px; left: 3px;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.toggle.on .toggle-thumb { transform: translateX(20px); }
